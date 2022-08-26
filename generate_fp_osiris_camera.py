@@ -135,13 +135,10 @@ if __name__ == '__main__':
     #######################################
     t_new = int(t_aos)
     camera_fp.set_time(t_new)
-    camera_fp.printline('cam snap -as')
+    camera_fp.printline('cam snap -asti')
     camera_fp.delay(3)
-    camera_fp.printline('cam snap -as')
-    camera_fp.delay(2)
-    camera_fp.printline('cam snap -as')
-    camera_fp.delay(2)
-
+    camera_fp.printline('cam snap -asti')
+  
     camera_fp.printline('rparam download 6 1 ')
     camera_fp.printline('rparam set exposure-us 1000')
     # camera_fp.printline('rparam set gain-global 30000')
@@ -154,7 +151,7 @@ if __name__ == '__main__':
     camera_fp.printline('rparam download 6 1 ')
     camera_fp.printline('rparam set exposure-us 10000')
     camera_fp.printline('cam node 6')
-    camera_fp.printline('cam snap -as')
+    camera_fp.printline('cam snap -asti')
 
     #camera_fp.delay(2)
     #camera_fp.printline('cam snap -asti')
