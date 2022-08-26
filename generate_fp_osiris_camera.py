@@ -84,6 +84,10 @@ if __name__ == '__main__':
     #for westward(from west to east choose 0, 0, -1.5708
     location = np.array([4186783 , 834322 , 4722824 ])   #make sure to copy the "Adjusted ECEF coordinates" from compute_new_ecef.py
     
+    #gso_ant should be for eastward passes: 0 0 1.570796
+#and 0 0 -1.570796 for westward passes
+
+    
     print(camera_fp.get_cmd_time('utc') + ": ROTATE TO TARGET")
     
     camera_fp.change_acs_mode(euler_angle=euler_offset,location=location,mode=acs_mode)  
