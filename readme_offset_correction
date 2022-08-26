@@ -1,0 +1,53 @@
+## Step-by-step
+
+Requirement install python packages as given in the script. Use python3.7 or higher except for gsweb_extractor (=python2), some library features are not supported for lower versions and is not compatible. Requires most up to date tle file.
+
+# Plan pass
+Plan the pass using plan_osiris_dlr.py script e.g.
+
+``
+python3 plan_osiris_dlr.py -t <t0> --euler-offset <X Y Z> # 0090 or 00-90
+
+``
+#ask Hoiang if that gives out the figures
+
+
+with <t0> the start time of the planning e.g. 2021-10-20T20:40:00. Preferably 20 minutes before AOS, and <X Y Z>  as the euler angles in deg (gso_ant) (rotation sequence Z->Y->X) of the satellite. General rule of thumb w.r.t. LVLH frame. Example: GSO-EAST: (90, 0, 90), GSO-WEST: (90, 0, -90). It is possible to yaw around the laser axis e.g. (adjusting the Z rotation).
+
+# Generate FP 
+#do not need to execute this
+
+Use gs_tracking_dlr.py, and adjust:
+``
+fp_file     = "gs_cubel1020b.fp"
+pay_nr      = "02"
+adcs_nr     = "1020b"
+bcn_fname   = "cubel"
+AOS = "2021-10-20T20:58:46"
+LOS = "2021-10-20T21:09:50"
+GSO_EULER = np.array([np.pi/2, 0, -np.pi/2])
+``
+
+Generate FP and update the gso_list parameter: copy paste the results from compute_new_ecef.py script. 
+``
+python3.7 compute_new_ecef.py -t <t_max_elevation>
+``
+with the time at max elevation of the pass.
+
+# Upload FP
+see presentation
+
+# Download data from satellite
+see presentation
+
+# Extract data from database
+
+python2 gsweb_extractor.py --host <host-ip> --db <database-name> --node 4 --satellite <sat> --from_ts <t0> --to_ts <t1> --config gstrack.json --output <filename>.csv --resolution 1
+
+with <host-ip> the host ip address, <database-name> name of database, <sat> the satelite number, <t0> the start time of collection, <t1> end time, and <filename> the output filename.
+
+# Plot data
+For example:
+``
+python3 plot_osiris_dlr.py -f ./data/osiris_track1013b.csv
+``
